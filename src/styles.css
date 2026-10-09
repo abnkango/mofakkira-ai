@@ -148,6 +148,7 @@ button:active { transform: scale(.98); }
 .bubble.user { justify-self: start; background: var(--accent); color: #fff; border-bottom-left-radius: 5px; }
 .bubble.assistant { justify-self: end; background: var(--surface); border: 1px solid var(--border); border-bottom-right-radius: 5px; }
 .note-link { display: block; color: var(--accent); font-weight: 800; margin-top: 7px; text-decoration: underline; text-underline-offset: 3px; }
+.api-settings-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; padding: 7px 10px; border-radius: 999px; background: var(--accent-bg); color: var(--accent); font-weight: 800; }
 .quick-suggestions { display: flex; gap: 7px; overflow-x: auto; padding: 0 16px 10px; scrollbar-width: none; }
 .quick-suggestions::-webkit-scrollbar { display: none; }
 .suggestion { flex: 0 0 auto; white-space: nowrap; background: var(--accent-bg); color: var(--accent); border-radius: 999px; padding: 8px 12px; font-weight: 800; font-size: 12px; }
