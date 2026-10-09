@@ -11,9 +11,8 @@ export default function FoldersScreen({ folders, notes, selectedFolder, onBack, 
   const longTriggered = useRef(false)
   return <section className="screen">
     <div className="topbar"><button className="back-btn" onClick={onBack}><ArrowRight size={19} /> رجوع</button><h1>مجلدات</h1><button className="icon-btn" aria-label="سلة المحذوفات" onClick={onRecycle}><Recycle size={19} /></button></div>
-    <div className="folder-list">{items.map(folder => <button key={folder.id} className="card folder-row" onClick={() => { if (!longTriggered.current) { onSelect(folder.id); onBack() } longTriggered.current = false }} onPointerDown={() => { longTriggered.current = false; if (!folder.system) timer.current = window.setTimeout(() => { longTriggered.current = true; onFolderMenu(folder) }, 560) }} onPointerUp={() => { if (timer.current) window.clearTimeout(timer.current) }} onPointerCancel={() => { if (timer.current) window.clearTimeout(timer.current) }}>
+    <div className="screen-scroll"><div className="folder-list">{items.map(folder => <button key={folder.id} className="card folder-row" onClick={() => { if (!longTriggered.current) { onSelect(folder.id); onBack() } longTriggered.current = false }} onPointerDown={() => { longTriggered.current = false; if (!folder.system) timer.current = window.setTimeout(() => { longTriggered.current = true; onFolderMenu(folder) }, 560) }} onPointerUp={() => { if (timer.current) window.clearTimeout(timer.current) }} onPointerCancel={() => { if (timer.current) window.clearTimeout(timer.current) }}>
       <span className="folder-row-main"><Folder size={19} /><span><strong>{folder.name}</strong><small>{count(folder.id)} ملاحظات</small></span></span><span className="folder-check">{selectedFolder === folder.id ? <Check size={19} /> : !folder.system ? <MoreVertical size={18} color="var(--muted)" /> : null}</span>
-    </button>)}</div>
-    <div style={{ marginTop: 16 }}><button className="card add-folder" onClick={onNew}><Plus size={18} /> مجلد جديد</button></div>
+    </button>)}</div><div style={{ marginTop: 16 }}><button className="card add-folder" onClick={onNew}><Plus size={18} /> مجلد جديد</button></div></div>
   </section>
 }
