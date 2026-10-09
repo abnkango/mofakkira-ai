@@ -1,11 +1,11 @@
-import { Check, ChevronRight, ListTodo, Plus } from 'lucide-react'
+import { Check, ChevronRight, ListTodo, Plus, Sparkles, StickyNote } from 'lucide-react'
 import { useRef, useState } from 'react'
 import type { Task } from '../types'
 
-type Props = { tasks: Task[]; onToggle: (id: string) => void; onAdd: (text: string) => void; onDelete: (id: string) => void; onBack: () => void }
+type Props = { tasks: Task[]; onToggle: (id: string) => void; onAdd: (text: string) => void; onDelete: (id: string) => void; onBack: () => void; onNotes: () => void; onAssistant: () => void }
 type Filter = 'all' | 'open' | 'done'
 
-export default function TasksScreen({ tasks, onToggle, onAdd, onDelete, onBack }: Props) {
+export default function TasksScreen({ tasks, onToggle, onAdd, onDelete, onBack, onNotes, onAssistant }: Props) {
   const [value, setValue] = useState(''); const [filter, setFilter] = useState<Filter>('all'); const startX = useRef(0); const [dragging, setDragging] = useState<string | null>(null)
   const shown = [...tasks].filter(t => filter === 'all' || (filter === 'open' ? !t.done : t.done)).sort((a, b) => Number(a.done) - Number(b.done))
   const submit = () => { const clean = value.trim(); if (clean) { onAdd(clean); setValue('') } }
@@ -16,5 +16,7 @@ export default function TasksScreen({ tasks, onToggle, onAdd, onDelete, onBack }
     <div className="task-list">{shown.map(task => <div key={task.id} className={`card task-row ${dragging === task.id ? 'dragging' : ''}`} onPointerDown={e => { startX.current = e.clientX; setDragging(task.id) }} onPointerUp={e => { const dx = e.clientX - startX.current; setDragging(null); if (Math.abs(dx) > 80) onDelete(task.id) }} onPointerCancel={() => setDragging(null)}><button className={`task-check ${task.done ? 'done' : ''}`} onClick={() => onToggle(task.id)} aria-label={task.done ? 'إلغاء الإنجاز' : 'إنجاز المهمة'}>{task.done && <Check size={15} />}</button><span className={`task-text ${task.done ? 'done' : ''}`}>{task.text}</span></div>)}</div>
     {!shown.length && <div className="empty-state"><ListTodo size={30} strokeWidth={1.6} /><p>لا توجد مهام {filter === 'open' ? 'غير منجزة' : filter === 'done' ? 'منجزة' : ''}</p></div>}
     <p className="helper-text" style={{ textAlign: 'center', marginTop: 22 }}>اسحب المهمة إلى أي جانب لحذفها</p>
+    <button className="fab fab-ai" aria-label="المساعد" onClick={onAssistant}><Sparkles size={21} /></button>
+    <nav className="bottom-nav"><button className="nav-item" onClick={onNotes}><StickyNote size={18} /><span>الملاحظات</span></button><button className="nav-item active"><ListTodo size={18} /><span>المهام</span></button></nav>
   </section>
 }
