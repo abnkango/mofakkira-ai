@@ -36,9 +36,10 @@ button, input, textarea { font: inherit; }
 button { border: 0; cursor: pointer; color: inherit; }
 button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 42%, transparent); outline-offset: 2px; }
 .app-shell { width: 100%; height: 100dvh; min-height: 100dvh; display: flex; justify-content: center; overflow: hidden; background: var(--bg); }
-.phone-frame { width: min(100%, 440px); height: 100%; max-height: 100%; min-height: 0; position: relative; overflow: hidden; background: var(--bg); }
+.phone-frame { width: min(100%, 430px); height: 100%; max-height: 100%; min-height: 0; position: relative; overflow: hidden; display: flex; flex-direction: column; background: var(--bg); }
 @media (min-width: 600px) { .app-shell { padding: 28px; background: #e9e9e4; } :root[data-theme='dark'] .app-shell { background: #0f100f; } .phone-frame { min-height: min(900px, calc(100vh - 56px)); height: min(900px, calc(100vh - 56px)); border: 8px solid var(--surface); border-radius: 34px; box-shadow: var(--shadow); overflow: hidden; } }
-.screen { height: 100%; min-height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 24px 16px 132px; animation: appear .24s ease both; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.screen { flex: 1 1 auto; min-height: 0; overflow: hidden; display: flex; flex-direction: column; padding: 24px 16px 0; animation: appear .24s ease both; }
+.screen-scroll { flex: 1 1 0%; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 150px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 @keyframes appear { from { opacity: .25; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 button, .card, .chip, .icon-btn, .primary-btn, .ghost-btn { transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease; }
 button:active { transform: scale(.98); }
@@ -88,10 +89,10 @@ button:active { transform: scale(.98); }
 .note-meta .folder-pill { color: var(--accent); background: var(--accent-bg); padding: 4px 8px; border-radius: 999px; }
 .empty-state { text-align: center; padding: 38px 18px; color: var(--muted); }
 .empty-state svg { margin: 0 auto 12px; color: var(--accent); }
-.fab { position: absolute; bottom: 82px; width: 52px; height: 52px; border-radius: 18px; display: grid; place-items: center; box-shadow: 0 12px 24px rgba(0,0,0,.14); z-index: 4; }
+.fab { position: absolute; bottom: 84px; width: 52px; height: 52px; border-radius: 18px; display: grid; place-items: center; box-shadow: 0 12px 24px rgba(0,0,0,.14); z-index: 4; }
 .fab-new { inset-inline-start: 18px; background: var(--surface); border: 1px solid var(--border); color: var(--accent); font-size: 28px; }
 .fab-ai { inset-inline-end: 18px; background: var(--accent); color: #fff; font-size: 21px; }
-.bottom-nav { position: absolute; inset-inline: 12px; bottom: 12px; height: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px; background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--border); border-radius: 20px; z-index: 3; }
+.bottom-nav { flex: 0 0 60px; margin: 0 12px 12px; height: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px; background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--border); border-radius: 20px; z-index: 3; }
 .nav-item { border-radius: 15px; background: transparent; color: var(--muted); display: grid; place-items: center; gap: 2px; font-weight: 800; font-size: 12px; }
 .nav-item.active { background: var(--accent-bg); color: var(--accent); }
 .folder-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 15px; min-height: 65px; text-align: start; }

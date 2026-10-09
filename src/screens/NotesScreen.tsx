@@ -1,4 +1,4 @@
-import { Folder, ListTodo, Plus, Search, Settings, Sparkles, StickyNote } from 'lucide-react'
+import { Folder, Search, Settings, StickyNote } from 'lucide-react'
 import type { Folder as FolderType, Note } from '../types'
 import { formatDate } from '../data'
 import { useRef } from 'react'
@@ -7,10 +7,10 @@ type Props = {
   notes: Note[]; folders: FolderType[]; selectedFolder: string; search: string
   onSearch: (value: string) => void; onSelectFolder: (id: string) => void
   onOpen: (note: Note) => void; onLongPress: (note: Note) => void
-  onSettings: () => void; onFolders: () => void; onNew: () => void; onAssistant: () => void; onTasks: () => void
+  onSettings: () => void; onFolders: () => void
 }
 
-export default function NotesScreen({ notes, folders, selectedFolder, search, onSearch, onSelectFolder, onOpen, onLongPress, onSettings, onFolders, onNew, onAssistant, onTasks }: Props) {
+export default function NotesScreen({ notes, folders, selectedFolder, search, onSearch, onSelectFolder, onOpen, onLongPress, onSettings, onFolders }: Props) {
   const activeNotes = notes.filter(n => !n.deletedAt && (selectedFolder === 'all' ? true : selectedFolder === 'uncategorized' ? !n.folderId : n.folderId === selectedFolder)).filter(n => `${n.title} ${n.body}`.toLowerCase().includes(search.toLowerCase()))
   const timer = useRef<number | undefined>(undefined)
   const longTriggered = useRef(false)
@@ -24,12 +24,9 @@ export default function NotesScreen({ notes, folders, selectedFolder, search, on
       {folders.map(f => <button key={f.id} className={`chip ${selectedFolder === f.id ? 'active' : ''}`} onClick={() => onSelectFolder(f.id)}>{f.name}</button>)}
       <button className={`chip ${selectedFolder === 'uncategorized' ? 'active' : ''}`} onClick={() => onSelectFolder('uncategorized')}>غير مصنف</button>
     </div>
-    <div className="section-label"><h3>{selectedFolder === 'all' ? 'كل ملاحظاتك' : 'ملاحظات هذا المجلد'}</h3><span>{activeNotes.length} ملاحظات</span></div>
-    <div className="note-list">{activeNotes.map(note => <button key={note.id} className="card note-card" onClick={() => { if (!longTriggered.current) onOpen(note); longTriggered.current = false }} onPointerDown={() => startLong(note)} onPointerUp={cancelLong} onPointerCancel={cancelLong} onPointerLeave={cancelLong}>
+    <div className="section-label shrink-0"><h3>{selectedFolder === 'all' ? 'كل ملاحظاتك' : 'ملاحظات هذا المجلد'}</h3><span>{activeNotes.length} ملاحظات</span></div>
+    <div className="screen-scroll"><div className="note-list">{activeNotes.map(note => <button key={note.id} className="card note-card" onClick={() => { if (!longTriggered.current) onOpen(note); longTriggered.current = false }} onPointerDown={() => startLong(note)} onPointerUp={cancelLong} onPointerCancel={cancelLong} onPointerLeave={cancelLong}>
       <h3>{note.title || 'ملاحظة بلا عنوان'}</h3><p>{note.body || 'لا يوجد نص بعد'}</p><div className="note-meta"><span>{formatDate(note.updatedAt)}</span>{note.folderId && <span className="folder-pill">{folders.find(f => f.id === note.folderId)?.name}</span>}</div>
-    </button>)}</div>
-    {!activeNotes.length && <div className="empty-state"><StickyNote size={30} strokeWidth={1.6} /><p>{search ? 'لا توجد نتائج مطابقة' : 'لا توجد ملاحظات بعد، اضغط + للبدء'}</p></div>}
-    <button className="fab fab-new" aria-label="ملاحظة جديدة" onClick={onNew}><Plus size={26} /></button><button className="fab fab-ai" aria-label="المساعد" onClick={onAssistant}><Sparkles size={21} /></button>
-    <nav className="bottom-nav"><button className="nav-item active" onClick={() => onSelectFolder(selectedFolder)}><StickyNote size={18} /><span>الملاحظات</span></button><button className="nav-item" onClick={onTasks}><ListTodo size={18} /><span>المهام</span></button></nav>
+    </button>)}</div>{!activeNotes.length && <div className="empty-state"><StickyNote size={30} strokeWidth={1.6} /><p>{search ? 'لا توجد نتائج مطابقة' : 'لا توجد ملاحظات بعد، اضغط + للبدء'}</p></div>}</div>
   </section>
 }
