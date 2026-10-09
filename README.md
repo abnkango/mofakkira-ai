@@ -2,6 +2,11 @@
 
 نموذج ويب تفاعلي عربي RTL لتطبيق ملاحظات ومهام، مبني باستخدام React وTypeScript وVite وLucide.
 
+## الروابط
+
+- المستودع: https://github.com/abnkango/mofakkira-ai
+- المعاينة العامة عبر GitHub Pages: https://abnkango.github.io/mofakkira-ai/
+
 ## التشغيل محليًا
 
 ```bash
