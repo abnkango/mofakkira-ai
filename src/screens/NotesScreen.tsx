@@ -1,6 +1,6 @@
 import { Folder, Search, Settings, StickyNote } from 'lucide-react'
 import type { Folder as FolderType, Note } from '../types'
-import { formatDate } from '../data'
+import { formatNoteDate } from '../utils'
 import { useRef } from 'react'
 
 type Props = {
@@ -26,7 +26,7 @@ export default function NotesScreen({ notes, folders, selectedFolder, search, on
     </div>
     <div className="section-label shrink-0"><h3>{selectedFolder === 'all' ? 'كل ملاحظاتك' : 'ملاحظات هذا المجلد'}</h3><span>{activeNotes.length} ملاحظات</span></div>
     <div className="screen-scroll"><div className="note-list">{activeNotes.map(note => <button key={note.id} className="card note-card" onClick={() => { if (!longTriggered.current) onOpen(note); longTriggered.current = false }} onPointerDown={() => startLong(note)} onPointerUp={cancelLong} onPointerCancel={cancelLong} onPointerLeave={cancelLong}>
-      <h3>{note.title || 'ملاحظة بلا عنوان'}</h3><p>{note.body || 'لا يوجد نص بعد'}</p><div className="note-meta"><span>{formatDate(note.updatedAt)}</span>{note.folderId && <span className="folder-pill">{folders.find(f => f.id === note.folderId)?.name}</span>}</div>
+      <h3>{note.title || 'ملاحظة بلا عنوان'}</h3><p>{note.body || 'لا يوجد نص بعد'}</p><div className="note-meta"><span className="note-date">{formatNoteDate(note.updatedAt).slice(0, -6).trim()} <span dir="ltr" style={{ unicodeBidi: 'isolate' }}>{formatNoteDate(note.updatedAt).slice(-5)}</span></span>{note.folderId && <span className="folder-pill">{folders.find(f => f.id === note.folderId)?.name}</span>}</div>
     </button>)}</div>{!activeNotes.length && <div className="empty-state"><StickyNote size={30} strokeWidth={1.6} /><p>{search ? 'لا توجد نتائج مطابقة' : 'لا توجد ملاحظات بعد، اضغط + للبدء'}</p></div>}</div>
   </section>
 }

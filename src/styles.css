@@ -87,6 +87,7 @@ button:active { transform: scale(.98); }
 .note-card h3 { margin: 0 0 7px; font-size: 17px; }
 .note-card p { color: var(--muted); margin: 0; line-height: 1.75; font-size: 14px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .note-meta { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 12px; margin-top: 12px; }
+.note-date { direction: rtl; }
 .note-meta .folder-pill { color: var(--accent); background: var(--accent-bg); padding: 4px 8px; border-radius: 999px; }
 .empty-state { text-align: center; padding: 38px 18px; color: var(--muted); }
 .empty-state svg { margin: 0 auto 12px; color: var(--accent); }
@@ -163,6 +164,11 @@ button:active { transform: scale(.98); }
 .setting-option { display: flex; align-items: center; justify-content: space-between; min-height: 47px; padding: 0 11px; border-radius: 11px; background: transparent; font-weight: 700; }
 .setting-option.active { background: var(--accent-bg); color: var(--accent); }
 .secret-field { position: relative; } .secret-field .text-input { padding-inline-end: 52px; } .secret-field button { position: absolute; inset-inline-end: 5px; top: 5px; width: 38px; height: 38px; border-radius: 11px; background: transparent; color: var(--muted); }
+.saved-key-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 15px; }
+.saved-key-line { margin: 0; color: var(--text); font-weight: 700; display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.saved-key-line span { color: var(--muted); letter-spacing: 1px; white-space: nowrap; }
+.saved-key-actions { display: flex; gap: 8px; margin-top: 12px; }
+.saved-key-actions > * { flex: 1; }
 .version { margin: 0; color: var(--muted); }
 .recycle-card { padding: 15px; display: grid; gap: 12px; }
 .recycle-main { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
